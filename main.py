@@ -9,6 +9,7 @@ from cgitb import text
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+import uvicorn
 
 app = FastAPI()
 
@@ -48,3 +49,7 @@ def comments(id: int):
 @app.post('/blog')
 def create_blog(request: Blog):
     return {'data': f'blog created with title {request.title}'}
+
+
+if __name__ == '__main__':
+    uvicorn.run(app, port=5000)
