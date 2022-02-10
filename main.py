@@ -1,6 +1,6 @@
 """
 FastAPI - A python framework | Full Course
-https://www.youtube.com/watch?v=7t2alSnE2-I  1:21:00
+https://www.youtube.com/watch?v=7t2alSnE2-I  1:33:00
 
 
 """
