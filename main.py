@@ -1,11 +1,10 @@
 """
 FastAPI - A python framework | Full Course
-https://www.youtube.com/watch?v=7t2alSnE2-I  52:28
+https://www.youtube.com/watch?v=7t2alSnE2-I  1:21:00
 
 
 """
 
-from cgitb import text
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
