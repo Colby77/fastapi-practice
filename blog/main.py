@@ -22,7 +22,7 @@ def get_db():
 
 
 # @app.post('/blog', status_code=201) also works
-@app.post('/blog', status_code=status.HTTP_201_CREATED)
+@app.post('/blog', status_code=status.HTTP_201_CREATED, tags=['blogs'])
 def create_blog(request: schemas.Blog, db: Session = Depends(get_db)):
 
     new_blog = models.Blog(title=request.title, body=request.body)
@@ -32,14 +32,14 @@ def create_blog(request: schemas.Blog, db: Session = Depends(get_db)):
     return new_blog
 
 
-@app.get('/blog', response_model=List[schemas.ShowBlog])
+@app.get('/blog', response_model=List[schemas.ShowBlog], tags=['blogs'])
 def get_all_blogs(db: Session = Depends(get_db)):
 
     blogs = db.query(models.Blog).all()
     return blogs
 
 
-@app.get('/blog/{id}', status_code=200, response_model=schemas.ShowBlog)
+@app.get('/blog/{id}', status_code=200, response_model=schemas.ShowBlog, tags=['blogs'])
 def get_blog_by_id(id, response: Response, db: Session = Depends(get_db)):
 
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
@@ -51,7 +51,7 @@ def get_blog_by_id(id, response: Response, db: Session = Depends(get_db)):
     return blog
 
 
-@app.put('/blog/{id}', status_code=status.HTTP_202_ACCEPTED)
+@app.put('/blog/{id}', status_code=status.HTTP_202_ACCEPTED, tags=['blogs'])
 def update_blog(id, request: schemas.Blog, db: Session = Depends(get_db)):
     
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
@@ -66,7 +66,7 @@ def update_blog(id, request: schemas.Blog, db: Session = Depends(get_db)):
     return 'updated successfully'
 
 
-@app.delete('/blog/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@app.delete('/blog/{id}', status_code=status.HTTP_204_NO_CONTENT, tags=['blogs'])
 def delete_blog(id, db: Session = Depends(get_db)):
 
     blog = db.query(models.Blog).filter(models.Blog.id == id).first()
@@ -82,7 +82,7 @@ def delete_blog(id, db: Session = Depends(get_db)):
     return f'Blog with id {id} deleted successfully'
 
 
-@app.post('/user', response_model=schemas.ShowUser)
+@app.post('/user', response_model=schemas.ShowUser, tags=['users'])
 def create_user(request: schemas.User, db: Session = Depends(get_db)):
 
     new_user = models.User(name=request.name, email=request.email, 
@@ -95,7 +95,7 @@ def create_user(request: schemas.User, db: Session = Depends(get_db)):
     return new_user
 
 
-@app.get('/user/{id}', response_model=schemas.ShowUser)
+@app.get('/user/{id}', response_model=schemas.ShowUser, tags=['users'])
 def get_user(id: int, db: Session = Depends(get_db)):
 
     user = db.query(models.User).filter(models.User.id == id).first()
